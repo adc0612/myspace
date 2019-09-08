@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        var div1 = document.querySelector('#app');
+        // div1.innerHTML = 'Hello HTML';
+        var viewmodel = {};
+        
+        // Object.defineProperty('대상 객체','객체의 속성',{
+        //     //정의할 내용
+        // })
+        //자체가 갑이 바뀌는게 reactivity 
+        (function(){
+            function init() {
+                Object.defineProperty(viewmodel, 'str', {
+                    //속성에 접근했을때 동장
+                    get: function () {
+                        console.log('Touch');
+                    },
+                    //속성에 값을 할당했을때 값
+                    set: function (newvalue) {
+                        console.log('할당', newvalue);
+                        render(newvalue);
+                    }
+                });
+            }
+
+            function render(value) {
+                div1.innerHTML = value;
+            }
+            init();
+        })();
+        
+
+
+    </script>
+</body>
+</html>

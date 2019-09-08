@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <page-title id="pageTitle" v-bind:propsdata="titleText"></page-title>
+</head>
+<body>
+    <div id="app">
+        <app-header v-bind:propsdata="headerText"></app-header>
+        <app-content v-bind:propsdata="contentText"></app-content>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</body>
+    <script>
+        var HeadComponent = {
+            template: '<h1>{{propsdata}}</h1>',
+            props: ['propsdata']
+        };
+        var ContentComponent = {
+            template: '<p>{{propsdata}}</p>',
+            props: ['propsdata']
+        };
+        var PageTitle = {
+            template: '<title>{{propsdata}}</title>',
+            props: ['propsdata']
+        };
+        new Vue({
+            el: '#app',
+            components: {
+                'app-header': HeadComponent,
+                'app-content': ContentComponent
+            },
+            data: {
+                headerText: 'header에요',
+                contentText: 'Content에요'
+            }
+        });
+        new Vue({
+            el: '#pageTitle',
+            components: {
+                'pageTitle': PageTitle
+            },
+            data: {
+                titleText: '타이틀이다'
+            }
+        });
+
+    </script>
+</html>

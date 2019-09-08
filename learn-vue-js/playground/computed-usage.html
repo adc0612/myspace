@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .warning {
+            color: red;
+        }
+
+        .normal {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p v-bind:class="errorTextColor">{{num}}</p>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            num: 10,
+            isError: true
+        },
+        computed: {
+            errorTextColor: function () {
+                return this.isError ? 'warning' : 'normal';
+            }
+        },
+        methods: {
+
+        }
+    })
+</script>
+
+</html>

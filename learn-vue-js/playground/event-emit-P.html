@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{num}}</p>
+        <app-header v-on:show-log="show"></app-header>
+        <app-content v-on:increase-num="increase"></app-content>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var appHeader = {
+            template: '<button v-on:click="showLogEvent">click me</button>',
+            methods: {
+                showLogEvent: function () {
+                    this.$emit('show-log')
+
+                }
+            }
+        };
+        var appContent = {
+            template: '<button v-on:click="increaseNumEvent">add</button>',
+            methods: {
+                increaseNumEvent: function () {
+                    this.$emit('increase-num')
+                }
+            }
+        };
+        var vm = new Vue({
+            el: '#app',
+            components: {
+                'app-header': appHeader,
+                'app-content': appContent
+            },
+            data: {
+                num: 10
+            },
+            methods: {
+                show: function () {
+                    console.log('show');
+
+                },
+                increase: function () {
+                    this.num = this.num + 1;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
