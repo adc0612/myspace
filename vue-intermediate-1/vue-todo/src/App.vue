@@ -1,9 +1,12 @@
 <template>
   <div id="app">
     <TodoHeader></TodoHeader>
-    <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
-    <TodoList v-bind:propsdata="todoItems" v-on:removeTodoItem="removeOneItem" v-on:toggleTodoItem="toggleOneItem"></TodoList>
-    <TodoFooter v-on:clearAll="clearAllItems"></TodoFooter>
+    <!-- <TodoInput v-on:addTodoItem="addOneItem"></TodoInput> -->
+    <TodoInput></TodoInput>
+    <!-- <TodoList v-bind:propsdata="todoItems" v-on:removeTodoItem="removeOneItem" v-on:toggleTodoItem="toggleOneItem"></TodoList> -->
+    <TodoList></TodoList>
+    <!-- <TodoFooter v-on:clearAll="clearAllItems"></TodoFooter> -->
+    <TodoFooter></TodoFooter>
   </div>
 </template>
 
@@ -15,50 +18,39 @@ import TodoFooter from './components/TodoFooter.vue'
 
 
 export default {
-  data(){
-    return{
-      todoItems: []
-    }
-  },
-  created(){
-    if(localStorage.length > 0){
-      for(let i=0;i<localStorage.length;i++){
-        if(localStorage.key(i) !== 'loglevel:webpack-dev-server' && localStorage.key(i) !== ''){
-          this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-          // console.log(JSON.parse(localStorage.getItem(localStorage.key(i))));
-          // this.todoItems.push(localStorage.key(i));
-        }
-      }
-    }
-  },
-  methods: {
-    addOneItem (todoItem) {
-       const obj ={completed:false, item: todoItem};
-      localStorage.setItem(todoItem, JSON.stringify(obj));
-      this.todoItems.push(obj);
-    },
-    removeOneItem(todoItem,index){
-      console.log(todoItem,index);
-      console.log(todoItem.item);
-      // 여기서 todoItem이 todoItems배열에 키이므로 그걸 사용해 지운다.
-      localStorage.removeItem(todoItem.item);
-      //splice를 slice대신 쓰는 이유는 slice는 그냥 삭제만 하지만 splice는 삭제하고 새 배열을 다시 로드 해준다.
-      // localstorage에서 삭제 했으면 todoItems에서도 삭제해줘야 한다.
-      //key를 가지고 있는 index와 1을 넣어준다. 1은 하나만 지우라는 뜻이다.
-      this.todoItems.splice(index,1);
-    },
-    toggleOneItem(todoItem,index){
-      this.todoItems[index].completed = !this.todoItems[index].completed 
-      // todoItem.completed = !todoItem.completed;
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
-      console.log(todoItem.completed);
-    },
-    clearAllItems(){
-      localStorage.clear();
-      this.todoItems = [];
-    }
-  },
+  // data(){
+  //   return{
+  //     todoItems: []
+  //   }
+  // },
+  // methods: {
+  //   addOneItem (todoItem) {
+  //      const obj ={completed:false, item: todoItem};
+  //     localStorage.setItem(todoItem, JSON.stringify(obj));
+  //     this.todoItems.push(obj);
+  //   },
+  //   removeOneItem(todoItem,index){
+  //     console.log(todoItem,index);
+  //     console.log(todoItem.item);
+  //     // 여기서 todoItem이 todoItems배열에 키이므로 그걸 사용해 지운다.
+  //     localStorage.removeItem(todoItem.item);
+  //     //splice를 slice대신 쓰는 이유는 slice는 그냥 삭제만 하지만 splice는 삭제하고 새 배열을 다시 로드 해준다.
+  //     // localstorage에서 삭제 했으면 todoItems에서도 삭제해줘야 한다.
+  //     //key를 가지고 있는 index와 1을 넣어준다. 1은 하나만 지우라는 뜻이다.
+  //     this.todoItems.splice(index,1);
+  //   },
+  //   toggleOneItem(todoItem,index){
+  //     this.todoItems[index].completed = !this.todoItems[index].completed 
+  //     // todoItem.completed = !todoItem.completed;
+  //     localStorage.removeItem(todoItem.item);
+  //     localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+  //     console.log(todoItem.completed);
+  //   },
+  //   clearAllItems(){
+  //     localStorage.clear();
+  //     this.todoItems = [];
+  //   }
+  // },
   components: {
       //ES6에서 components선언과 들어오는 값이 같으면 하나로 써줄수 있다.
       // 'TodoHeader': TodoHeader, = TodoHeader

@@ -1,14 +1,14 @@
 <template>
   <div>
     <transition-group name="list" tag="ul">
-      <li v-for="(todoItem,index) in propsdata" v-bind:key="todoItem.item" class="shadow">
+      <li v-for="(todoItem,index) in this.storedTodoItems" v-bind:key="todoItem.item" class="shadow">
         <i
           class="checkBtn fas fa-check"
           v-bind:class="{checkBtnCompleted:todoItem.completed}"
-          v-on:click="toggleComplete(todoItem,index)"
+          v-on:click="toggleComplete({todoItem,index})"
         ></i>
         <span v-bind:class="{textCompleted:todoItem.completed}">{{todoItem.item}}</span>
-        <span class="removeBtn" v-on:click="removeTodo(todoItem,index)">
+        <span class="removeBtn" v-on:click="removeTodo({todoItem,index})">
           <i class="fas fa-trash-alt"></i>
         </span>
       </li>
@@ -17,15 +17,27 @@
 </template>
 
 <script>
+import {mapGetters, mapMutations} from 'vuex'
 export default {
-  props: ["propsdata"],
   methods: {
-    removeTodo(todoItem, index) {
-      this.$emit("removeTodoItem", todoItem, index);
-    },
-    toggleComplete(todoItem, index) {
-      this.$emit("toggleTodoItem", todoItem, index);
-    }
+    ...mapMutations({
+      //mutation 적용 후 전달되는인자가 하나여야하고 하나이면 인자를 안 써줘도 자동으로 입력된다.
+      removeTodo: 'removeOneItem',
+      toggleComplete: 'toggleOneItem'
+    }),
+    //vuex mutaions 전 코드
+    // removeTodo(todoItem, index) {
+    //   // this.$emit("removeTodoItem", todoItem, index);
+    //   // {todoItem,index} 이렇게 쓰면 객체에 담아서 보낼수 있다.
+    //   this.$store.commit('removeOneItem',{todoItem,index});
+    // },
+    // toggleComplete(todoItem, index) {
+    //   // this.$emit("toggleTodoItem", todoItem, index);
+    //   this.$store.commit('toggleOneItem',{todoItem,index});
+    // }
+  },
+  computed: {
+    ...mapGetters(['storedTodoItems'])
   }
 };
 </script>
